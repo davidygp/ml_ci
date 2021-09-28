@@ -31,7 +31,7 @@ X_test = scaler.transform(X_test)
 # Train a Decision Tree Classifier
 from sklearn.tree import DecisionTreeClassifier
 
-model = DecisionTreeClassifier()
+model = DecisionTreeClassifier(max_depth=7)
 model.fit(X_train, y_train)
 
 # Compute the training and test accuracy
@@ -60,18 +60,16 @@ plt.bar(x=feature_cols, height=model.feature_importances_)
 ax.set_title("Feature importances")
 fig.tight_layout()
 plt.savefig("feature_importance.png")
-plt.close()
 
 #%%
 # Plot residuals
-
+fig.clear()
 y_pred = model.predict(X_test)
 y_test1 = y_test["quality"].tolist()
 # residuals = y_test - y_pred
 residuals = [y_test1[i] - y_pred[i] for i in range(len(y_test1))]
 plt.scatter(residuals, y_pred)
 plt.savefig("residuals.png")
-plt.close()
 
 #%%
 # Export the model using pickle
@@ -81,3 +79,5 @@ file_name = "model.pkl"
 open_file = open(file_name, "wb")
 pickle.dump([scaler, model], open_file)
 open_file.close()
+
+# %%
