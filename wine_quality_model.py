@@ -12,19 +12,29 @@ X = wines.loc[:, ["fixed_acidity", "volatile_acidity", "citric_acid", "alcohol"]
 X = wines[["fixed_acidity", "volatile_acidity", "citric_acid", "alcohol"]]
 y = wines.loc[:, ["quality"]]
 
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
 # Scale the variables to be within the range of -1 to 1.
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler(feature_range=(-1,1))
-scaler.fit(X)
-X = scaler.transform(X)
+scaler.fit(X_train)
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
 
 # Train a Decision Tree Classifier
 from sklearn.tree import DecisionTreeClassifier
 model = DecisionTreeClassifier()
-model.fit(X,y)
+model.fit(X_train, y_train)
 
-# Print the model score
-model.score(X, y)
+# Compute the training and test accuracy
+training_acc = model.score(X_train, y_train) * 100
+test_acc = model.score(X_test, y_test) * 100
+
+# Output the results in a .txt file
+with open("results.txt", "w") as f:
+    f.write(f"Training accuracy: {training_acc}\n")
+    f.write(f"Test accuracy: {test_acc}\n")
 
 # Export the model using pickle
 import pickle
