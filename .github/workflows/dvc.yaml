@@ -1,0 +1,10 @@
+stages:
+    train:
+        cmd: python wine_quality_model.py
+        deps:
+            - wine_quality_model.py
+        outs:
+            - "confusion_matrix.png"
+        metrics:
+            - results.txt:
+                cache: false

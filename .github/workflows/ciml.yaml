@@ -12,7 +12,12 @@ jobs:
               run: |
                 # ML workflow
                 pip install -r requirements.txt
+                dvc repro
+        
+                git fetch --prune
                 python wine_quality_model.py
+                dvc metrics diff --show-md master > report.md
+
                 echo "## Model metrics" > report.md
                 cat results.txt >> report.md
                 echo "## Confusion Matrix" >> report.md
