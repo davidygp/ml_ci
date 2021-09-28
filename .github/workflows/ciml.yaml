@@ -15,7 +15,6 @@ jobs:
                 dvc repro
         
                 git fetch --prune
-                python wine_quality_model.py
                 dvc metrics diff --show-md master > report.md
 
                 echo "## Model metrics" > report.md

@@ -2,7 +2,7 @@
 # # Import wine dataset
 import pandas as pd
 
-wines = pd.read_csv("winequality-red.csv")
+wines = pd.read_csv("winequality.csv")
 wines.columns = wines.columns.str.replace(" ", "_")
 
 # Split dataset into features and target

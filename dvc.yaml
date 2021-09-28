@@ -1,10 +1,24 @@
 stages:
+    get_white_wine_dataset:
+        cmd: python get_white_wine.py
+        deps:
+            - get_white_wine.py
+        outs:
+            - winequality-white.csv
+    merge_datasets:
+        cmd: python merge_data.py
+        deps:
+            - merge_data.py
+            - winequality-white.csv
+        outs:
+            - winequality.csv
     train:
         cmd: python wine_quality_model.py
         deps:
-        - wine_quality_model.py
+            - winequality.csv
+            - wine_quality_model.py
         outs:
-        - "confusion_matrix.png"
+            - "confusion_matrix.png"
         metrics:
-        - results.txt:
-            cache: false
+            - results.txt:
+                cache: false

@@ -1,0 +1,41 @@
+schema: '2.0'
+stages:
+  train:
+    cmd: python wine_quality_model.py
+    deps:
+    - path: wine_quality_model.py
+      md5: 0d58a03b730bbfd526ebdf0f6c7c14f7
+      size: 2484
+    - path: winequality.csv
+      md5: 70344a907abf75a41510764e4c23df9d
+      size: 380727
+    outs:
+    - path: confusion_matrix.png
+      md5: b5eb81dde0c70a4e73ca078404eb9612
+      size: 24921
+    - path: results.txt
+      md5: 4b604571402219037593a94d8a187929
+      size: 70
+  get_white_wine_dataset:
+    cmd: python get_white_wine.py
+    deps:
+    - path: get_white_wine.py
+      md5: 0f1491e3b946ddd843678ce229eb82a6
+      size: 434
+    outs:
+    - path: winequality-white.csv
+      md5: b56c9a78a7fcad87a58fc586bf5298bc
+      size: 287388
+  merge_datasets:
+    cmd: python merge_data.py
+    deps:
+    - path: merge_data.py
+      md5: 8eba7811974d3c9b478b00c8fbbbfda3
+      size: 314
+    - path: winequality-white.csv
+      md5: b56c9a78a7fcad87a58fc586bf5298bc
+      size: 287388
+    outs:
+    - path: winequality.csv
+      md5: 70344a907abf75a41510764e4c23df9d
+      size: 380727
