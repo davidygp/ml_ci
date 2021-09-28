@@ -60,6 +60,7 @@ plt.bar(x=feature_cols, height=model.feature_importances_)
 ax.set_title("Feature importances")
 fig.tight_layout()
 plt.savefig("feature_importance.png")
+plt.close()
 
 #%%
 # Plot residuals
@@ -70,6 +71,7 @@ y_test1 = y_test["quality"].tolist()
 residuals = [y_test1[i] - y_pred[i] for i in range(len(y_test1))]
 plt.scatter(residuals, y_pred)
 plt.savefig("residuals.png")
+plt.close()
 
 #%%
 # Export the model using pickle
