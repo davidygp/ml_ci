@@ -1,1 +1,15 @@
-
+name: my-workflow
+on: [push]
+jobs:
+    run:
+        runs-on: ubuntu-latest
+        container: docker://dvcorg/cml-py3:latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Train model
+              env:
+                REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run:
+                # ML workflow
+                pip install -r requirements.txt
+                python wine_quality_model.py
