@@ -36,6 +36,12 @@ with open("results.txt", "w") as f:
     f.write(f"Training accuracy: {training_acc}\n")
     f.write(f"Test accuracy: {test_acc}\n")
 
+# Plot a confusion matrix
+from sklearn.metrics import plot_confusion_matrix
+import matplotlib.pyplot as plt
+plot_confusion_matrix(model, X_test, y_test)
+plt.savefig("confusion_matrix.png")
+
 # Export the model using pickle
 import pickle
 file_name = "model.pkl"
